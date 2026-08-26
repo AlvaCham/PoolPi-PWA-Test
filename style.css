@@ -1,0 +1,556 @@
+/* ==========================================
+   1. CONFIGURACIÓN GENERAL Y BASE
+   ========================================== */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: #020d1d;
+  overscroll-behavior: none; 
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #f5f7fa;
+}
+
+button {
+  font: inherit;
+  user-select: none; 
+}
+
+/* Contenedor principal estilo móvil */
+.phone {
+  width: min(100vw, 600px);
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 18px 18px 38px;
+  background: #06172d;
+  overflow: hidden;
+}
+
+
+/* ==========================================
+   2. BARRA SUPERIOR (HEADER / TOP) REDISTRIBUIDA
+   ========================================== */
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 48px;
+  gap: 4px;
+  flex-wrap: nowrap;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-shrink: 0;
+}
+
+.brand-name {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.brand .drop {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+
+.brand .drop img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.date {
+  color: #9ca7b7;
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
+  line-height: 1.1;
+  text-align: center;
+  margin-left: 0;
+}
+
+.header-right-block {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.connecting {
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.status-init {
+  background: #3a4454 !important;
+  color: #a3b2c9 !important;
+  padding: 5px 10px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.status-online {
+  background: #004d21 !important;
+  color: #20ff42 !important;
+  padding: 5px 10px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.status-offline {
+  background: #5c0606 !important;
+  color: #ff4545 !important;
+  padding: 5px 10px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.wifi {
+  width: 32px;    
+  height: 32px;   
+  overflow: hidden;
+  display: flex;  
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0; 
+}
+
+.wifi img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+
+/* ==========================================
+   3. FILA PRINCIPAL (ESTADO / BOTÓN OFF)
+   ========================================== */
+.main-row {
+  display: grid;
+  grid-template-columns: 1fr 96px;
+  gap: 8px;
+  margin: 0 0 10px;
+}
+
+.correct {
+  height: 68px;
+  border: 1px solid #8997aa;
+  border-radius: 15px;
+  background: #00850e;
+  display: flex;
+  align-items: center;
+  gap: 42px;
+  padding: 0 18px;
+  font-size: 31px;
+  font-weight: 700;
+}
+
+.check {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(#f7fff8, #b9d5bf);
+  color: #007c12;
+  display: grid;
+  place-items: center;
+  font-size: 35px;
+  font-weight: 900;
+  box-shadow: 0 0 0 1px #31573b;
+}
+
+.off {
+  border: 1px solid #9ea5b0;
+  border-radius: 15px;
+  background: #ff0d16;
+  color: white;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.1;
+  cursor: pointer;
+}
+
+
+/* ==========================================
+   4. TARJETAS (CARDS) - ESTILOS COMUNES
+   ========================================== */
+.card {
+  border: 1.5px solid #8592a6;
+  border-radius: 27px;
+  margin-bottom: 12px;
+  background: #06172d;
+  position: relative;
+  overflow: hidden;
+}
+
+.card h2 {
+  margin: 9px 14px 0;
+  text-align: right;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: .2px;
+}
+
+.measure {
+  height: 78px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 48px;
+  position: relative;
+}
+
+.number {
+  font-size: 65px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -2px;
+}
+
+.unit {
+  font-size: 24px;
+  align-self: flex-start;
+  margin: 8px 0 0 8px;
+}
+
+.cyan { color: #00baf4; }
+.orange { color: #ff7414; }
+.green { color: #2cff43; }
+
+
+/* ==========================================
+   5. TARJETAS ESPECÍFICAS (BLOQUES)
+   ========================================== */
+
+.pool-icon, .target-icon, .solar-icon {
+  position: absolute;
+  left: 25px;
+  top: -40px;          
+  width: 150px;         
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pool-icon img, .target-icon img, .solar-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; 
+}
+
+.pool { height: 160px; }
+
+.pool .bottom-line {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 16px;
+  font-size: 20px;
+  color: #f4f5f7;
+}
+
+.triangle {
+  color: #28f04b;
+  font-size: 32px;
+  vertical-align: -4px;
+}
+
+.target { height: 160px; }
+
+.target-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 24px;
+  padding-right: 32px;
+  margin-top: -1px;
+}
+
+.target-buttons button {
+  height: 43px;
+  width: 114px;
+  border: 1px solid #273e6d;
+  border-radius: 13px;
+  background: #2053d8;
+  color: white;
+  font-size: 43px;
+  font-weight: 700;
+  line-height: 28px;
+  cursor: pointer;
+}
+
+.lower-cell strong.status-text-off {
+  color: #8997aa !important;
+}
+
+.panels { height: 160px; }
+
+.panel-bottom {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 15px;
+  font-size: 18px;
+}
+
+.panel-bottom i {
+  height: 29px;
+  width: 1px;
+  background: #a9b2bf;
+}
+
+.panel-bottom b { font-size: 20px; }
+
+
+
+/* ==========================================
+   6. GRID QUÍMICA DEL AGUA (WATER)
+   ========================================== */
+.water {
+  height: 255px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.water-cell {
+  position: relative;
+  text-align: center;
+  padding: 13px 7px 8px;
+}
+
+.water-cell:nth-child(2), .water-cell:nth-child(4) { border-left: 1px solid #9aa5b4; }
+.water-cell:nth-child(3), .water-cell:nth-child(4) { border-top: 1px solid #9aa5b4; }
+
+.water-cell h3 { margin: 0; font-size: 21px; }
+
+.water-icon {
+  position: absolute;
+  left: 27px;
+  top: 48px;
+  width: 35px;
+  height: 35px;
+}
+.water-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.water-cell strong {
+  display: block;
+  color: #00baf4;
+  font-size: 25px;
+  margin-top: 8px;
+}
+
+.water-cell small {
+  display: block;
+  color: #d4d8df;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+
+/* ==========================================
+   7. GRID INFERIOR CORREGIDO (ZONA LOWER)
+   ========================================== */
+.lower {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto; 
+  height: auto;
+  min-height: 230px;
+}
+
+.lower-cell {
+  text-align: center;
+  padding: 14px 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.lower-cell:nth-child(2), .lower-cell:nth-child(4) { border-left: 1px solid #9aa5b4; }
+.lower-cell:nth-child(3), .lower-cell:nth-child(4) { border-top: 1px solid #9aa5b4; }
+
+.lower-cell h3 { 
+  margin: 0; 
+  font-size: 21px; 
+}
+
+.lower-cell strong {
+  display: inline-block;
+  color: #1cff3e;
+  font-size: 25px;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.status-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;               
+}
+
+.lower-icon {
+  width: 42px;             
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lower-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;     
+}
+
+.valve-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+
+.valve-icon {
+  width: 42px;
+  height: 42px;
+}
+.valve-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.play {
+  color: #00c9ff;
+  font-size: 24px;
+  margin: 0 4px;
+}
+
+
+/* ==========================================
+   8. AJUSTES ESPECÍFICOS DE LA CELDA EXTERIOR
+   ========================================== */
+.lower-cell.exterior {
+  align-items: center;    
+  justify-content: center;
+  padding: 10px 14px;
+}
+
+.weather-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 12px;
+}
+
+.thermo {
+  width: 35px;
+  height: 55px;
+  flex-shrink: 0;
+}
+
+.thermo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.weather-data {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex-grow: 1;
+}
+
+.exterior .weather-line {
+  font-size: 15px;
+  color: #dfe2e8;
+  line-height: 1.2;
+  text-align: right;       
+  width: 100%;
+  display: block;
+}
+
+.exterior .weather-line b {
+  color: #ff8a2b;
+  font-size: 16px;
+}
+
+/* ==========================================
+   9. BOTONES DE ACCIÓN ADICIONALES Y ESTADOS
+   ========================================== */
+.btn-action-medir {
+  background: #2053d8;
+  color: white;
+  border: 1px solid #273e6d;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 6px 8px;
+  cursor: pointer;
+}
+
+.btn-action-medir:disabled {
+  background: #47587a;
+  cursor: not-allowed;
+}
+
+.loading-state { background: #566475 !important; }
+.error-state { background: #8f1111 !important; }
+.active-forced-off { background: #4a4d52 !important; box-shadow: inset 0 0 10px #000; }
+
+
+/* ==========================================
+   10. ADAPTACIÓN PARA MÓVILES (RESPONSIVE)
+   ========================================== */
+@media (max-width: 520px) {
+  .phone { padding: 12px 18px 28px; }
+  .brand-name { font-size: 28px; }
+  .date { font-size: 17px; }
+  .connecting { font-size: 12px; padding: 6px 10px; }
+  .wifi { font-size: 29px; }
+  .correct { height: 58px; font-size: 25px; gap: 24px; }
+  .check { width: 36px; height: 36px; font-size: 29px; }
+  .off { font-size: 15px; }
+  .card h2 { font-size: 20px; }
+  .number { font-size: 58px; }
+  .pool, .target, .panels { height: 145px; }
+  .target-buttons { padding: 0 22px; }
+  .target-buttons button { width: 114px; }
+  .water { height: 230px; }
+}
+
+@media (max-width: 390px) {
+  .top { gap: 7px; }
+  .brand-name { font-size: 24px; }
+  .date { font-size: 14px; }
+  .connecting { font-size: 10px; padding: 5px 7px; }
+  .correct { font-size: 20px; gap: 15px; }
+  .number { font-size: 52px; }
+  .card h2 { font-size: 18px; }
+  .panel-bottom { font-size: 15px; }
+  .water-cell h3, .lower-cell h3 { font-size: 18px; }
+  .lower-cell strong { font-size: 22px; }
+}
