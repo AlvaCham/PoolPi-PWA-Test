@@ -1,0 +1,630 @@
+/* ==========================================
+   1. CONFIGURACIÓN GENERAL Y BASE
+   ========================================== */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: #020d1d;
+  overscroll-behavior: none;
+  overflow-x: hidden; /* red de seguridad extra, además del fix de fondo de abajo */
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #f5f7fa;
+}
+
+button {
+  font: inherit;
+  user-select: none;
+}
+
+/* Contenedor principal estilo móvil.
+   El diseño original se pensó para un ancho de referencia de 600px
+   (la vista previa de CodePen). A partir de aquí, casi todos los
+   tamaños usan clamp(minimo, porcentaje-de-vw, maximo-original) para
+   que escalen de forma continua entre un móvil estrecho (~320px) y
+   ese ancho de referencia, en vez de saltos bruscos por @media. */
+.phone {
+  width: min(100vw, 600px);
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: clamp(10px, 3vw, 18px) clamp(10px, 3vw, 18px) clamp(22px, 6.3vw, 38px);
+  background: #06172d;
+  overflow: hidden;
+}
+
+
+/* ==========================================
+   2. BARRA SUPERIOR (HEADER / TOP) REDISTRIBUIDA
+   ========================================== */
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: auto;
+  min-height: 48px;
+  gap: 4px;
+  flex-wrap: nowrap;
+}
+
+/* Bloque Izquierdo: Logotipo y Nombre */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-shrink: 1;
+  min-width: 0; /* permite que el nombre se encoja/trunque en vez de desbordar */
+}
+
+.brand-name {
+  font-size: clamp(18px, 4.67vw, 28px);
+  font-weight: 700;
+  letter-spacing: -1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.brand .drop {
+  width: clamp(24px, 5.3vw, 32px);
+  height: clamp(24px, 5.3vw, 32px);
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  flex-shrink: 0;
+}
+
+.brand .drop img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Bloque Central: Fecha fija en el centro absoluto */
+.date {
+  color: #9ca7b7;
+  font-size: clamp(11px, 2.67vw, 16px);
+  font-weight: 700;
+  white-space: nowrap;
+  line-height: 1.1;
+  text-align: center;
+  margin-left: 0;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+/* Bloque Derecho: Contenedor para alinear la pastilla de conexión y el WiFi lado a lado */
+.header-right-block {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+/* Estilo base genérico para los estados de la pastilla */
+.connecting {
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+/* Estado Inicial: Gris Conectando */
+.status-init {
+  background: #3a4454 !important;
+  color: #a3b2c9 !important;
+  padding: clamp(4px, 1vw, 5px) clamp(6px, 2vw, 10px);
+  font-size: clamp(10px, 2.17vw, 13px);
+  font-weight: 700;
+}
+
+/* Estado Conectado con éxito: Verde */
+.status-online {
+  background: #004d21 !important;
+  color: #20ff42 !important;
+  padding: clamp(4px, 1vw, 5px) clamp(6px, 2vw, 10px);
+  font-size: clamp(10px, 2.17vw, 13px);
+  font-weight: 700;
+}
+
+/* Estado Fallo: Rojo */
+.status-offline {
+  background: #5c0606 !important;
+  color: #ff4545 !important;
+  padding: clamp(4px, 1vw, 5px) clamp(6px, 2vw, 10px);
+  font-size: clamp(10px, 2.17vw, 13px);
+  font-weight: 700;
+}
+
+/* Icono WiFi perfectamente equilibrado con el tamaño del Logo de la izquierda */
+.wifi {
+  width: clamp(24px, 5.3vw, 32px);
+  height: clamp(24px, 5.3vw, 32px);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.wifi img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+
+/* ==========================================
+   3. FILA PRINCIPAL (ESTADO / BOTÓN OFF)
+   ========================================== */
+.main-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(70px, 96px);
+  gap: 8px;
+  margin: 0 0 10px;
+}
+
+.correct {
+  min-height: clamp(52px, 11vw, 68px);
+  height: auto;
+  border: 1px solid #8997aa;
+  border-radius: 15px;
+  background: #00850e;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  row-gap: 2px;
+  gap: clamp(14px, 7vw, 42px);
+  padding: clamp(10px, 3vw, 14px) clamp(10px, 3vw, 18px);
+  font-size: clamp(17px, 5.17vw, 31px);
+  font-weight: 700;
+  min-width: 0;
+}
+
+#status-banner-text {
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
+.check {
+  width: clamp(30px, 7vw, 42px);
+  height: clamp(30px, 7vw, 42px);
+  border-radius: 50%;
+  background: linear-gradient(#f7fff8, #b9d5bf);
+  color: #007c12;
+  display: grid;
+  place-items: center;
+  font-size: clamp(24px, 5.8vw, 35px);
+  font-weight: 900;
+  box-shadow: 0 0 0 1px #31573b;
+  flex-shrink: 0;
+}
+
+.off {
+  border: 1px solid #9ea5b0;
+  border-radius: 15px;
+  background: #ff0d16;
+  color: white;
+  font-size: clamp(12px, 2.83vw, 17px);
+  font-weight: 700;
+  line-height: 1.15;
+  cursor: pointer;
+  padding: 4px;
+}
+
+
+/* ==========================================
+   4. TARJETAS (CARDS) - ESTILOS COMUNES
+   ========================================== */
+.card {
+  border: 1.5px solid #8592a6;
+  border-radius: 27px;
+  margin-bottom: 12px;
+  background: #06172d;
+  position: relative;
+  overflow: hidden;
+}
+
+.card h2 {
+  margin: 9px 14px 0;
+  text-align: right;
+  font-size: clamp(15px, 4vw, 24px);
+  font-weight: 700;
+  letter-spacing: .2px;
+  overflow-wrap: break-word;
+}
+
+/* Estructura interna para alinear el número con el título de arriba */
+.measure {
+  min-height: 78px;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 6px clamp(20px, 8vw, 48px) 6px 0;
+  position: relative;
+  flex-wrap: wrap;
+}
+
+/* Bloque numérico */
+.number {
+  font-size: clamp(32px, 10.83vw, 65px);
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -2px;
+}
+
+.unit {
+  font-size: clamp(15px, 4vw, 24px);
+  align-self: flex-start;
+  margin: 8px 0 0 8px;
+}
+
+.cyan { color: #00baf4; }
+.orange { color: #ff7414; }
+.green { color: #2cff43; }
+
+
+/* ==========================================
+   5. TARJETAS ESPECÍFICAS (BLOQUES)
+   ========================================== */
+
+/* FIJACIÓN DE ICONOS IZQUIERDOS: ahora escalan con el ancho de pantalla
+   (clamp) en vez de un tamaño fijo, así dejan sitio real a los botones
+   y textos que hay debajo/al lado en un móvil estrecho, en vez de
+   pisarlos como pasaba antes. */
+.pool-icon, .target-icon, .solar-icon {
+  position: absolute;
+  left: clamp(12px, 4.17vw, 25px);
+  top: clamp(-20px, -6.67vw, -40px);
+  width: clamp(85px, 25vw, 150px);
+  height: clamp(85px, 25vw, 150px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none; /* puramente decorativo, nunca debe robar toques a botones */
+}
+
+.pool-icon img, .target-icon img, .solar-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Bloque Piscina (Pool) */
+.pool {
+  min-height: 160px;
+  height: auto;
+  padding-bottom: 8px;
+}
+
+.pool .bottom-line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 12px;
+  padding: 4px 16px 8px;
+  font-size: clamp(13px, 3vw, 20px);
+  color: #f4f5f7;
+}
+
+.triangle {
+  color: #28f04b;
+  font-size: 32px;
+  vertical-align: -4px;
+}
+
+/* Bloque Objetivo (Target) */
+.target {
+  min-height: 160px;
+  height: auto;
+  padding-bottom: 8px;
+}
+
+/* Contenedor de botones: ahora con tamaños fluidos (clamp) para que
+   nunca necesiten más ancho del que la tarjeta realmente tiene. */
+.target-buttons {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: clamp(10px, 4vw, 24px);
+  padding: 4px clamp(14px, 5.33vw, 32px) 0;
+  margin-top: -1px;
+}
+
+.target-buttons button {
+  height: clamp(34px, 7.2vw, 43px);
+  width: clamp(64px, 19vw, 114px);
+  border: 1px solid #273e6d;
+  border-radius: 13px;
+  background: #2053d8;
+  color: white;
+  font-size: clamp(26px, 7.2vw, 43px);
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* Estilo visual gris neutro para los estados en OFF / PISCINA */
+.lower-cell strong.status-text-off {
+  color: #8997aa !important;
+}
+
+/* Bloque Paneles Solares (Panels) */
+.panels {
+  min-height: 160px;
+  height: auto;
+  padding-bottom: 8px;
+}
+
+.panel-bottom {
+  min-height: 40px;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  gap: 6px 10px;
+  padding: 6px 15px;
+  font-size: clamp(13px, 3vw, 18px);
+}
+
+.panel-bottom i {
+  height: 29px;
+  width: 1px;
+  background: #a9b2bf;
+}
+
+.panel-bottom b { font-size: clamp(15px, 3.3vw, 20px); }
+
+
+
+/* ==========================================
+   6. GRID QUÍMICA DEL AGUA (WATER)
+   ========================================== */
+.water {
+  min-height: 230px;
+  height: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: auto auto;
+}
+
+.water-cell {
+  position: relative;
+  text-align: center;
+  padding: 13px 7px 8px;
+  min-width: 0;
+}
+
+.water-cell:nth-child(2), .water-cell:nth-child(4) { border-left: 1px solid #9aa5b4; }
+.water-cell:nth-child(3), .water-cell:nth-child(4) { border-top: 1px solid #9aa5b4; }
+
+.water-cell h3 {
+  margin: 0;
+  font-size: clamp(15px, 3.5vw, 21px);
+  overflow-wrap: break-word;
+}
+
+.water-icon {
+  position: absolute;
+  left: clamp(14px, 4.5vw, 27px);
+  top: clamp(38px, 8vw, 48px);
+  width: clamp(26px, 6vw, 35px);
+  height: clamp(26px, 6vw, 35px);
+}
+.water-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.water-cell strong {
+  display: block;
+  color: #00baf4;
+  font-size: clamp(17px, 4.2vw, 25px);
+  margin-top: 8px;
+  overflow-wrap: break-word;
+}
+
+.water-cell small {
+  display: block;
+  color: #d4d8df;
+  font-size: clamp(12px, 2.7vw, 16px);
+  margin-top: 10px;
+}
+
+
+/* ==========================================
+   7. GRID INFERIOR CORREGIDO (ZONA LOWER)
+   ========================================== */
+.lower {
+  display: grid;
+  /* minmax(0,1fr) es la corrección clave: sin el "0" de mínimo, una
+     celda con texto largo ("VÁLVULA SOLAR") se niega a encogerse por
+     debajo de su ancho natural y empuja toda la rejilla más allá del
+     ancho de pantalla, quedando cortada por el overflow:hidden de
+     .phone. Con minmax(0,1fr) la celda SÍ puede encogerse y el texto
+     baja a una segunda línea en vez de desbordar. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  height: auto;
+  min-height: 200px;
+}
+
+.lower-cell {
+  text-align: center;
+  padding: 14px 8px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  min-width: 0; /* deja que el contenido de la celda se encoja y envuelva */
+}
+
+.lower-cell:nth-child(2), .lower-cell:nth-child(4) { border-left: 1px solid #9aa5b4; }
+.lower-cell:nth-child(3), .lower-cell:nth-child(4) { border-top: 1px solid #9aa5b4; }
+
+.lower-cell h3 {
+  margin: 0;
+  font-size: clamp(14px, 3.5vw, 21px);
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+.lower-cell strong {
+  display: inline-block;
+  color: #1cff3e;
+  font-size: clamp(17px, 4.2vw, 25px);
+  line-height: 1.15;
+  margin: 0;
+  overflow-wrap: break-word;
+}
+
+/* Alineaciones internas de la fila de estado (Icono + Texto) */
+.status-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.lower-icon {
+  width: clamp(28px, 7vw, 42px);
+  height: clamp(28px, 7vw, 42px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.lower-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.valve-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-width: 0;
+}
+
+.valve-icon {
+  width: clamp(28px, 7vw, 42px);
+  height: clamp(28px, 7vw, 42px);
+  flex-shrink: 0;
+}
+.valve-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.play {
+  color: #00c9ff;
+  font-size: clamp(16px, 4vw, 24px);
+  margin: 0 4px;
+}
+
+
+/* ==========================================
+   8. AJUSTES ESPECÍFICOS DE LA CELDA EXTERIOR
+   ========================================== */
+.lower-cell.exterior {
+  align-items: center;
+  justify-content: center;
+  padding: 10px 10px;
+}
+
+/* Contenedor que junta el termómetro y los datos lado a lado */
+.weather-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 8px;
+  min-width: 0;
+}
+
+/* El termómetro, ahora con tamaño fluido */
+.thermo {
+  width: clamp(26px, 5.8vw, 35px);
+  height: clamp(40px, 9.2vw, 55px);
+  flex-shrink: 0;
+}
+
+.thermo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Bloque contenedor de los textos a la derecha */
+.weather-data {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+/* Líneas de texto meteorológico individuales */
+.exterior .weather-line {
+  font-size: clamp(12px, 2.6vw, 15px);
+  color: #dfe2e8;
+  line-height: 1.25;
+  text-align: right;
+  width: 100%;
+  display: block;
+  overflow-wrap: break-word;
+}
+
+.exterior .weather-line b {
+  color: #ff8a2b;
+  font-size: clamp(13px, 2.8vw, 16px);
+}
+
+/* ==========================================
+   9. BOTONES DE ACCIÓN ADICIONALES Y ESTADOS
+   ========================================== */
+.btn-action-medir {
+  background: #2053d8;
+  color: white;
+  border: 1px solid #273e6d;
+  border-radius: 8px;
+  font-size: clamp(10px, 2.2vw, 11px);
+  font-weight: bold;
+  padding: clamp(4px, 1.5vw, 6px) clamp(6px, 2vw, 8px);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-action-medir:disabled {
+  background: #47587a;
+  cursor: not-allowed;
+}
+
+.loading-state { background: #566475 !important; }
+.error-state { background: #8f1111 !important; }
+.active-forced-off { background: #4a4d52 !important; box-shadow: inset 0 0 10px #000; }
+
+/* ==========================================
+   10. NOTA SOBRE RESPONSIVE
+   ========================================== */
+/* Antes había aquí dos bloques @media (520px y 390px) que redefinían
+   tamaños a saltos. Se han retirado porque ya no hacen falta: casi
+   todos los tamaños de arriba usan clamp(), así que escalan de forma
+   continua entre un móvil estrecho y el ancho de referencia (600px),
+   sin "escalones" ni casos intermedios sin cubrir. */
