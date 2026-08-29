@@ -289,7 +289,7 @@ function actualizarEstadoConexion(texto, conExito = null) {
     indicador.innerText = "SIN CONEXIÓN";
     indicador.className = "connecting status-offline";
     if (banner) banner.className = "correct error-state";
-    if (bannerTxt) bannerTxt.innerText = "ERR. CONEXIÓN RBP";
+    if (bannerTxt) bannerTxt.innerText = "ERR CONEX RBP";
     if (statusIcon) {
       statusIcon.innerText = "✕";
       statusIcon.style.color = "#7c0000";
